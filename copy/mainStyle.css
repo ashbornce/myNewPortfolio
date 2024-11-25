@@ -1,0 +1,473 @@
+:root {
+    --robotoFont: 'Roboto', sans-serif;
+    --scFont: 'Playfair', serif;
+    --mainColor: #1E272E;
+    /* Warna utama, lebih lembut dari hitam */
+    --secondColor: #3498DB;
+    /* Biru aksen */
+    --thirdColor: #BDC3C7;
+    /* Abu-abu terang untuk teks */
+    --fourthColor: #0A0A0A;
+    /* Hitam pekat */
+    --white: #EAECEE;
+    /* Putih lembut */
+    --highlight: #F39C12;
+    /* Warna highlight (kuning-oranye) */
+}
+
+/* Reset */
+* {
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+body {
+    font-family: var(--robotoFont);
+    background-color: var(--fourthColor);
+    color: var(--thirdColor);
+    position: relative;
+    min-height: 100vh;
+    padding-bottom: 5rem;
+}
+
+/* Sidebar */
+.sidebar {
+    position: fixed;
+    top: 12rem;
+    /* Sidebar tetap berada di tengah vertikal */
+    right: 0;
+    transform: translateY(-50%);
+    /* Posisi vertikal tengah */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1rem;
+    padding-right: 2rem;
+    border-radius: 0 15px 15px 0;
+    z-index: 10;
+    transition: 0.3s ease;
+}
+
+.sidebar .nav-link {
+    transform: scaleY(0);
+    /* Awalnya tersembunyi */
+    transform-origin: top;
+    opacity: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    transition: transform 0.5s ease, opacity 0.5s ease;
+}
+
+.sidebar .nav-link.show {
+    transform: scaleY(1);
+    opacity: 1;
+    background-color: var(--mainColor);
+    padding: 0;
+    border: 0.1px solid var(--thirdColor);
+    border-radius: 10px;
+}
+
+.sidebar .toggle-btn {
+    padding: 0.5rem;
+    border: none;
+    border-radius: 10px;
+    margin: 0;
+    cursor: pointer;
+    /* Menyelaraskan tombol secara horizontal */
+    transition: transform 0.3s ease, top 0.3s ease;
+}
+
+.sidebar .toggle-btn i {
+    overflow: hidden;
+    font-size: 2rem;
+}
+
+.sidebar .nav-link.show~.toggle-btn {
+    top: 0;
+}
+
+.sidebar a i {
+    overflow: hidden;
+}
+
+.sidebar .icon {
+    color: var(--thirdColor);
+    text-align: center;
+    padding: 0.5rem;
+    font-size: 1.5rem;
+    transition: background 0.3s, color 0.3s;
+}
+
+.sidebar .icon:hover {
+    color: var(--white);
+    background-color: var(--highlight);
+    border-radius: 10px;
+}
+
+/* Hero Section */
+.hero {
+    padding: 5rem 10%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 100vh;
+    background-color: var(--mainColor);
+    color: var(--white);
+    text-align: left;
+}
+
+.hero h1 {
+    font-size: 4rem;
+    font-weight: bold;
+    color: var(--white);
+    text-shadow: 0 0 10px var(--highlight);
+}
+
+.hero h1 span {
+    color: var(--highlight);
+}
+
+.hero p {
+    font-size: 1.5rem;
+    line-height: 1.8;
+    margin-top: 1rem;
+}
+
+.hero p span {
+    color: var(--secondColor);
+    font-weight: bold;
+    text-decoration: underline;
+
+    strong {
+        color: var(--highlight);
+        text-decoration: underline var(--highlight);
+
+        &::before {
+            content: '"';
+        }
+
+        &::after {
+            content: '"';
+        }
+    }
+}
+
+.img {
+    overflow: hidden;
+    position: relative;
+}
+
+.img::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('img/lightTrs.png');
+    background-size: cover;
+    opacity: 0.6;
+}
+
+.img img {
+    width: 100%;
+    max-width: 25rem;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    transition: transform 0.3s ease;
+    filter: grayscale(1);
+}
+
+.img img:hover {
+    transform: scale(1.05);
+    filter: grayscale(0);
+}
+
+/* About Section */
+.about {
+    padding: 4rem 5%;
+    background-color: var(--fourthColor);
+    color: var(--thirdColor);
+    position: relative;
+    text-align: center;
+}
+
+.about h1 {
+    font-size: 3.5rem;
+    margin-bottom: 2rem;
+    color: var(--white);
+    text-shadow: 0 0 10px var(--secondColor);
+}
+
+.about .row {
+    background-color: rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(10px);
+    border-radius: 15px;
+    padding: 2rem;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+    align-items: center;
+    gap: 2rem;
+    max-width: 90%;
+    margin: 15px auto;
+}
+
+.about .myPhoto-container {
+    flex: 1;
+    text-align: center;
+}
+
+.about .myPhoto {
+    width: 15rem;
+    height: auto;
+    object-fit: cover;
+    border: 2px solid var(--secondColor);
+    box-shadow: 0 0 25px var(--secondColor);
+    margin-top: 25px;
+    border-radius: 10px;
+}
+
+.about .myPhoto-container figcaption {
+    margin-top: 1rem;
+    font-size: 1rem;
+    color: var(--thirdColor);
+}
+
+.about .card-body {
+    flex: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: left;
+    gap: 1rem;
+}
+
+.about ul {
+    list-style-type: decimal;
+    list-style-position: inside;
+    padding-left: 0;
+    text-align: start;
+
+    li {
+        margin-bottom: 10px;
+        text-indent: -1.5rem;
+        padding-left: 1.5rem;
+        line-height: 1.6;
+    }
+}
+
+.about ul li {
+    font-size: 1.2rem;
+    /* Ukuran font */
+    color: var(--white);
+    /* Warna font */
+    line-height: 1.6;
+    /* Spasi antar baris */
+    margin-bottom: 1rem;
+    /* Jarak antar item */
+    position: relative;
+    /* Agar bisa menambahkan nomor dengan pseudo-element */
+}
+
+
+/* Services Section */
+.services {
+    padding: 4rem 5%;
+    background-color: var(--mainColor);
+    color: var(--thirdColor);
+}
+
+.services h1 {
+    font-size: 3rem;
+    margin-bottom: 2rem;
+    color: var(--white);
+    text-shadow: 0 0 10px var(--secondColor);
+}
+
+.services .card {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 3rem;
+    background: transparent;
+    padding: 1.3rem 0;
+    border: none;
+}
+
+.services .card-body {
+    background-color: var(--fourthColor);
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.4);
+    color: var(--white);
+    transition: transform 0.3s ease, background-color 0.3s;
+}
+
+.services .card-body h2 {
+    color: var(--secondColor);
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+}
+
+.services .card-body ul {
+    margin: 1rem 0;
+    padding: 0;
+    list-style: none;
+}
+
+.services .card-body ul li {
+    margin-bottom: 1rem;
+}
+
+.services .card-body ul li h4 {
+    color: var(--highlight);
+    font-size: 1.2rem;
+    text-align: start;
+
+    &::before {
+        content: "● ";
+    }
+}
+
+.services .card-body ul li p {
+    font-size: 1rem;
+    color: var(--thirdColor);
+    text-align: start;
+    margin-left: 0.5rem;
+}
+
+.services .card-body:hover {
+    transform: translateY(-10px);
+    background-color: var(--secondColor);
+    color: var(--fourthColor);
+}
+
+.services .card-body:hover h2,
+.services .card-body:hover h4 {
+    color: var(--highlight);
+}
+
+.services .card-body:hover p {
+    color: var(--white);
+}
+
+/* services end */
+
+/* project */
+.project {
+    background-color: var(--fourthColor);
+    color: var(--white);
+}
+
+.project h2 {
+    text-shadow: 0 0 10px var(--secondColor);
+    font-size: 2.5rem;
+}
+
+.project .card {
+    background-color: var(--mainColor);
+    color: var(--white);
+    border: none;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.project .card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+}
+
+.project .card-img-top {
+    height: 200px;
+    object-fit: cover;
+    border-bottom: 3px solid var(--highlight);
+}
+
+.project .card-title {
+    color: var(--highlight);
+}
+
+.project .card .btn {
+    background-color: var(--secondColor);
+    color: var(--white);
+}
+
+.project .card .btn:hover {
+    background-color: var(--thirdColor);
+    color: var(--fourthColor);
+}
+
+/* project end */
+
+
+/* Responsive Design for Tablet and Mobile */
+@media only screen and (max-width: 768px) {
+
+    /* Hero Section */
+    .hero {
+        flex-direction: column;
+        /* Menyusun elemen hero secara vertikal */
+        padding: 3rem 5%;
+        height: auto;
+        text-align: center;
+        position: relative;
+    }
+
+    .hero h1 {
+        font-size: 2.5rem;
+        position: absolute;
+        bottom: 4rem;
+        z-index: 99;
+        -webkit-text-stroke: 1px var(--mainColor);
+        padding: 0 1rem;
+
+        span {
+            -webkit-text-stroke: 0;
+        }
+    }
+
+    .hero p {
+        font-size: 1rem;
+        line-height: 1.5;
+    }
+
+    .img img {
+        max-width: 20rem;
+        /* Mengurangi ukuran gambar pada layar kecil */
+    }
+
+    .about .row {
+        flex-direction: column;
+        gap: 2rem;
+    }
+
+    .about .myPhoto-container {
+        text-align: center;
+        margin: 0 auto;
+    }
+
+    .about .card-body {
+        text-align: center;
+    }
+
+    .services .card {
+        flex-wrap: wrap;
+    }
+}
+
+@media only screen and (max-width: 480px) {
+    .about h1 {
+        font-size: 2.5rem;
+    }
+
+    .about .myPhoto {
+        width: 12rem;
+    }
+}
