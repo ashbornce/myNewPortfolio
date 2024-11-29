@@ -37,6 +37,115 @@ body {
     min-height: 100vh;
 }
 
+/* loading animation */
+.loadingContainer {
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    z-index: 9999999999;
+    background: linear-gradient(to top left, #131313, #4e4343);
+    /* Linear gradient */
+    overflow: hidden;
+    /* Untuk memastikan elemen bintang tidak keluar */
+}
+
+.star {
+    position: absolute;
+    width: 5px;
+    height: 5px;
+    background: white;
+    border-radius: 50%;
+    box-shadow: 0 0 5px white;
+    /* Membuat titik bintang berbentuk bulat */
+    animation: blink 2s infinite ease-in-out;
+    /* Animasi kedip */
+}
+
+@keyframes blink {
+
+    0%,
+    100% {
+        opacity: 0;
+    }
+
+    50% {
+        opacity: 1;
+    }
+}
+
+.loading {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background: radial-gradient(circle, rgba(255, 255, 255, 1) 30%, rgba(255, 255, 255, 0) 70%);
+    border-radius: 50%;
+    /* Membuat kepala komet berbentuk bulat */
+    box-shadow: 0 0 20px 5px rgba(255, 255, 255, 0.8);
+    /* Efek bercahaya */
+    animation: cometMove 1s linear infinite;
+    /* Animasi pergerakan */
+}
+
+@keyframes cometMove {
+    0% {
+        transform: translate(-20vw, -20vh) scale(0.8);
+        /* Mulai di luar layar kecil */
+        opacity: 0;
+    }
+
+    25% {
+        opacity: 1;
+        /* Muncul secara perlahan */
+    }
+
+    50% {
+        transform: translate(50vw, 50vh) scale(1);
+        /* Gerak ke tengah layar */
+    }
+
+    75% {
+        opacity: 1;
+        /* Tetap terlihat */
+    }
+
+    100% {
+        transform: translate(120vw, 120vh) scale(0.8);
+        /* Bergerak keluar layar */
+        opacity: 0;
+    }
+}
+
+.loading::after {
+    content: '';
+    position: absolute;
+    width: 100px;
+    height: 2px;
+    background: linear-gradient(to left, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.5));
+    top: 50%;
+    left: -80px;
+    /* Posisi ekor di belakang kepala */
+    transform: translateY(-50%);
+    filter: blur(2px);
+    animation: cometTail 1s linear infinite;
+    /* Sinkron dengan pergerakan komet */
+}
+
+@keyframes cometTail {
+
+    0%,
+    100% {
+        width: 0px;
+        /* Awal dan akhir ekor kecil */
+    }
+
+    50% {
+        width: 100px;
+        /* Ekor memanjang saat di tengah */
+    }
+}
+
 /* Sidebar */
 .sidebar {
     position: fixed;
@@ -124,11 +233,35 @@ body {
     text-align: left;
 }
 
+.hero .intro {
+    overflow: hidden;
+}
+
+@keyframes fadeInText {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
 .hero h1 {
     font-size: 4rem;
     font-weight: bold;
     color: var(--white);
     text-shadow: 0 0 10px var(--highlight);
+    overflow: hidden;
+    opacity: 0;
+    /* Awal animasi */
+    transform: translateY(20px);
+    /* Awal posisi */
+    animation: fadeInText 1s ease forwards;
+    animation-delay: 1s;
+    /* Animasi dimulai setelah 0.5 detik */
 }
 
 .hero h1 span {
@@ -139,6 +272,13 @@ body {
     font-size: 1.5rem;
     line-height: 1.8;
     margin-top: 1rem;
+    opacity: 0;
+    /* Awal animasi */
+    transform: translateY(20px);
+    /* Awal posisi */
+    animation: fadeInText 1s ease forwards;
+    animation-delay: 1s;
+    /* Animasi dimulai setelah h1 */
 }
 
 .hero p span {
@@ -160,11 +300,36 @@ body {
     }
 }
 
+/* Keyframes untuk animasi fade-in pada gambar */
+@keyframes fadeInImg {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Keyframes untuk animasi fade-in pada ::before */
+@keyframes fadeInBefore {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 0.6;
+    }
+}
+
 .img {
     overflow: hidden;
     position: relative;
 }
 
+/* Awal animasi untuk ::before */
 .img::before {
     content: "";
     position: absolute;
@@ -174,16 +339,26 @@ body {
     height: 100%;
     background-image: url('img/lightTrs.png');
     background-size: cover;
-    opacity: 0.6;
+    opacity: 0;
 }
 
+.img.fade-in::before {
+    animation: fadeInBefore 1s ease forwards;
+}
+
+/* Awal animasi untuk img */
 .img img {
     width: 100%;
     max-width: 25rem;
-    border-radius: 15px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    opacity: 0;
+    transform: translateY(20px);
     transition: transform 0.3s ease;
     filter: grayscale(1);
+}
+
+.img.fade-in img {
+    animation: fadeInImg 1s ease forwards;
 }
 
 .img img:hover {
@@ -437,11 +612,20 @@ body {
     margin: 20px;
 }
 
+.contact ul {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: start;
+
+}
+
 .contact ul li .contact-link {
     font-size: 1.2rem;
     color: var(--thirdColor);
     text-decoration: none;
     transition: 0.4s ease;
+    margin-top: 5px;
 }
 
 .contact ul li:hover .contact-link {
@@ -506,17 +690,18 @@ footer {
     .hero {
         flex-direction: column;
         /* Menyusun elemen hero secara vertikal */
-        padding: 3rem 5%;
+        padding: 3rem 3%;
         height: auto;
         text-align: center;
         position: relative;
     }
 
     .hero h1 {
-        font-size: 2.5rem;
+        font-size: 2rem;
         position: absolute;
-        bottom: 4rem;
+        bottom: 4.2rem;
         z-index: 99;
+        margin-right: 5rem;
         -webkit-text-stroke: 1px var(--mainColor);
         padding: 0 1rem;
 
@@ -574,6 +759,13 @@ footer {
 
     #contact .subtitle {
         font-size: 1rem;
+    }
+
+    #contact ul {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
     }
 
     #contact ul li .contact-link {
