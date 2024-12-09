@@ -578,6 +578,15 @@ body {
     color: var(--fourthColor);
 }
 
+.modal-madul {
+    background-color: var(--fourthColor);
+
+    .modal-title {
+        color: var(--highlight);
+        font-weight: bold;
+    }
+}
+
 /* project end */
 
 /* contact */
